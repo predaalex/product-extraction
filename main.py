@@ -1,30 +1,10 @@
-import csv
-import web_scrapping
+import sparknlp
+# make sure the next command doesn't have any error or failed downloads
+# this is where the JAR and the dependencies are being downloaded
+# so if you are behind the firewall, or proxy or lose internet connectivity it won't load it
+# and you see that error
+spark = sparknlp.start()
 
-###################
-# opening csv file and put it's content into a list of urls
-###################
-csv_contents = []
+print(spark.version)
 
-with open("resources/furniture stores pages.csv", "r") as file:
-    csv_reader = csv.reader(file)
-    for row in csv_reader:
-        csv_contents.append(row[0])
-
-csv_contents.remove("max(page)")
-
-print(len(csv_contents))
-
-###################
-# Fetch HTML content for each URL
-###################
-
-html_contents = []
-
-for url in csv_contents:
-    html_content = web_scrapping.fetch_html_content(url)
-    if html_content:
-        html_contents.append(html_content)
-
-print(f"Fetched HTML content from {len(html_contents)} URLs")
-
+sparknlp.version()
